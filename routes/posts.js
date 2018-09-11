@@ -25,7 +25,8 @@ module.exports = {
     res.status(200).send(`Post created:\n\n ${result}`)
   },
   updatePost(req, res) {
-    store.posts[req.params.id] = req.body
+    let merged = {...store.posts[req.params.id], ...req.body};
+    store.posts[req.params.id] = merged;
     res.status(200).send(store.posts[req.params.id])
   },
   removePost(req, res) {

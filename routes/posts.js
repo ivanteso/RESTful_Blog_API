@@ -25,7 +25,22 @@ module.exports = {
     res.status(200).send(`Post created:\n\n ${result}`)
   },
   updatePost(req, res) {
-    let merged = {...store.posts[req.params.id], ...req.body};
+    let updatedPost = req.body;
+    let updObj = {
+      name: updatedPost.name,
+      url: updatedPost.url,
+      picture: updatedPost.picture,
+      text: updatedPost.text,
+      comments: updatedPost.comments,
+      verified: updatedPost.verified
+    }
+    Object.entries(updObj).forEach(([key, value]) => {
+      if (value === undefined) {
+        delete updObj[key];
+        delete updObj[value];
+      }
+    })
+    let merged = {...store.posts[req.params.id], ...updObj}
     store.posts[req.params.id] = merged;
     res.status(200).send(store.posts[req.params.id])
   },

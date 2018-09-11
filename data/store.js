@@ -1,3 +1,5 @@
+// In memory store database
+
 module.exports = {
   posts: [
     {

@@ -9,11 +9,13 @@ app.use(bodyParser.json())
 app.use(logger('dev'))
 app.use(errorhandler())
 
+// Post routes and methods
 app.get('/posts', routes.posts.getPosts)
 app.post('/posts', routes.posts.addPost)
 app.put('/posts/:id', routes.posts.updatePost)
 app.delete('/posts/:id', routes.posts.removePost)
 
+// Comments routes and methods
 app.get('/posts/:id/comments', routes.comments.getComments)
 app.post('/posts/:id/comments', routes.comments.addComment)
 app.put('/posts/:id/comments/:commentId', routes.comments.updateComment)

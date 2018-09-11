@@ -20,6 +20,17 @@ module.exports = {
         text: newPost.text,
         comments: newPost.comments
       }
+    Object.entries(obj).forEach(([key, value]) => {
+      if (value === undefined) {
+        delete obj[key];
+        delete obj[value];
+      }
+    })
+    console.log(obj)
+    console.log(Object.keys(obj).length)
+    if (obj.constructor === Object && Object.keys(obj).length === 0) {
+      return res.status(422).send('Error: impossible to create the new post. Values not allowed');
+    }
     store.posts.push(obj)
     let result = JSON.stringify(store.posts[id], null, 2)
     res.status(200).send(`Post created:\n\n ${result}`)
@@ -32,9 +43,8 @@ module.exports = {
     let updObj = {
       name: updatedPost.name,
       url: updatedPost.url,
-      picture: updatedPost.picture,
       text: updatedPost.text,
-      comments: updatedPost.comments,
+      picture: updatedPost.picture,
       verified: updatedPost.verified
     }
     Object.entries(updObj).forEach(([key, value]) => {

@@ -25,6 +25,9 @@ module.exports = {
     res.status(200).send(`Post created:\n\n ${result}`)
   },
   updatePost(req, res) {
+    if (!store.posts[req.params.id]) {
+      return res.status(404).send('Error: impossibe to update the post. Original post not found');
+    }
     let updatedPost = req.body;
     let updObj = {
       name: updatedPost.name,

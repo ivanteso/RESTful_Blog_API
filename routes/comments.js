@@ -28,6 +28,9 @@ module.exports = {
         delete obj[value];
       }
     })
+    if (obj.constructor === Object && Object.keys(obj).length === 0) {
+      return res.status(422).send('Error: impossible to add the comment. Values not allowed');
+    }
     allComments.push(obj)
     res.status(200).send(allComments)
   },

@@ -22,7 +22,15 @@ module.exports = {
         pictures: newPost.pictures,
         verified: newPost.verified,
         comments: newPost.comments
+        //commentText: newPost.comments.commentText
       }
+    let i = obj.comments.length
+    while (i--) {
+      console.log(obj.comments[i].commentText)
+      if (!obj.comments[i].commentText) {
+        obj.comments.splice(i, 1);
+      }
+    }
     Object.entries(obj).forEach(([key, value]) => {
       if (value === undefined || value === '') {
         delete obj[key];
@@ -63,6 +71,9 @@ module.exports = {
     res.status(200).send(store.posts[req.params.id])
   },
   removePost(req, res) {
+    if (!store.posts[req.params.id]) {
+      return res.status(404).send('Error: impossibe to delete the post. Post not found');
+    }
     store.posts.splice(req.params.id, 1)
     res.status(201).send(`Post ${req.params.id} deleted`)
   }

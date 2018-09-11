@@ -16,7 +16,7 @@ app.delete('/posts/:id', routes.posts.removePost)
 
 app.get('/posts/:id/comments', routes.comments.getComments)
 app.post('/posts/:id/comments', routes.comments.addComment)
-app.put('/posts/:id/comments/:id', routes.comments.updateComment)
-app.delete('/posts/:id/comments/:id', routes.comments.removeComment)
+app.put('/posts/:id/comments/:commentId', routes.comments.updateComment)
+app.delete('/posts/:id/comments/:commentId', routes.comments.removeComment)
 
 app.listen(3000)

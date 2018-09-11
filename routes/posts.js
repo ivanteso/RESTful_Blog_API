@@ -13,21 +13,22 @@ module.exports = {
       return res.status(422).send('Error: the post is empty');
     }
     let newPost = req.body
+    console.log(newPost)
     let id = store.posts.length
     let obj = {
         name: newPost.name,
         url: newPost.url,
         text: newPost.text,
+        pictures: newPost.pictures,
+        verified: newPost.verified,
         comments: newPost.comments
       }
     Object.entries(obj).forEach(([key, value]) => {
-      if (value === undefined) {
+      if (value === undefined || value === '') {
         delete obj[key];
         delete obj[value];
       }
     })
-    console.log(obj)
-    console.log(Object.keys(obj).length)
     if (obj.constructor === Object && Object.keys(obj).length === 0) {
       return res.status(422).send('Error: impossible to create the new post. Values not allowed');
     }
@@ -47,12 +48,16 @@ module.exports = {
       picture: updatedPost.picture,
       verified: updatedPost.verified
     }
+    console.log('test', updObj.name)
     Object.entries(updObj).forEach(([key, value]) => {
-      if (value === undefined) {
+      if (value === undefined || value === '') {
         delete updObj[key];
         delete updObj[value];
       }
     })
+    if (updObj.constructor === Object && Object.keys(updObj).length === 0) {
+      return res.status(422).send('Error: impossible to update the post. Values not allowed');
+    }
     let merged = {...store.posts[req.params.id], ...updObj}
     store.posts[req.params.id] = merged;
     res.status(200).send(store.posts[req.params.id])

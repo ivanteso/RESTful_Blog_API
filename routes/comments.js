@@ -2,7 +2,9 @@ const store = require('../data/store')
 
 module.exports = {
   getComments(req, res) {
-    if (store.posts[req.params.id].comments.length === 0) {
+    if (!store.posts[req.params.id]) {
+      return res.status(404).send("Post not found")
+    } else if (store.posts[req.params.id].comments.length === 0) {
       return res.status(404).send("No comments available")
     } else {
       res.status(200).send(store.posts[req.params.id].comments)

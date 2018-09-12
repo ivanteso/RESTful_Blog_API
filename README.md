@@ -44,6 +44,22 @@ curl -X DELETE "http://localhost:3000/posts/0"
 ```
 The server has many safety checks implemented from scratch. For example, it doesn't allow the user to post empty values that may result in deleting the old values. The server has also a whitelist, so the user can't send to the server things that are not previously authorized.
 
+An initial post is provided in `data/store.js` and it has this structure:
+```
+posts: [
+    {name: 'Top 10 ES6 Features every Web Developer must know',
+    url: 'https://webapplog.com/es6',
+    text: 'This essay will give you a quick introduction to ES6. If you don’t know what is ES6, it’s a new JavaScript implementation.',
+    comments: [
+      text: 'Cruel…..var { house, mouse} = No type optimization at all',
+      text: 'I think you’re undervaluing the benefit of ‘let’ and ‘const’.',
+      text: '(p1,p2)=>{ … } ,i understand this ,thank you !'      
+    ]
+    }
+  ]
+  ```
+  Other keys the user is allowed to create are `picture` and `verified`.
+  
 ## Dependencies
 
 This app is built with [NodeJS](https://nodejs.org/en/)
